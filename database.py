@@ -8,5 +8,10 @@ collection_mac = database_apple["mac"]
 collection_iphone = database_apple["iphone"]
 collection_ipad = database_apple["ipad"]
 
+# database_apple.collection_mac.insert({
+#     "name": "iphone 8",
+#     "capacity" : "64"
+# })
+
 
 print(database_apple.list_collection_names())
