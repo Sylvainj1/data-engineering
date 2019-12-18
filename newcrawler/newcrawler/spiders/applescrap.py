@@ -30,12 +30,14 @@ class AppleSpider(scrapy.Spider):
 
     def refurbished_product(self, response):
         for i in response.css(".platter.selfclear"):
-            title=self.clean_spaces(i.css("#productDetails").css("h1::text").get())
-            currentPrice=self.clean_spaces(i.css(".current_price span::text").get())
-            previousPrice=self.clean_spaces(i.css(".as-price-previousprice::text").get())
-            save=self.clean_spaces(i.css(".as-price-savings::text").get())
-            img=i.css(".gallery-preview img::attr(src)").extract() 
+            _id = i.css('form').css('input::attr(value)')[0].get()  #ca n'a pas l'air d'etre unique bizarre
+            title = i.css("#productDetails").css("h1::text").get()
+            currentPrice = i.css(".current_price span::text").get()
+            previousPrice = i.css(".as-price-previousprice::text").get()
+            save = i.css(".as-price-savings::text").get()
+            img= i.css(".gallery-preview img::attr(src)").extract()
             yield ArticleItem(
+                    _id= _id,
                     title=title,
                     currentPrice=currentPrice,
                     previousPrice=previousPrice,

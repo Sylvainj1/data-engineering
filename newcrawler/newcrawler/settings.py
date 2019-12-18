@@ -63,9 +63,10 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'newcrawler.pipelines.NewcrawlerPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'newcrawler.pipelines.TextPipeline': 200,
+   'newcrawler.pipelines.StoreInMongo': 400,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

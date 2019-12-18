@@ -4,14 +4,11 @@ client = MongoClient("0.0.0.0:27018")
 
 database_apple = client.refurbApple
 
-collection_mac = database_apple["mac"]
-collection_iphone = database_apple["iphone"]
-collection_ipad = database_apple["ipad"]
+collection_product = database_apple['product']
 
-# database_apple.collection_mac.insert({
-#     "name": "iphone 8",
-#     "capacity" : "64"
-# })
+cursor = collection_product.find()
 
-
-print(database_apple.list_collection_names())
+print(cursor.count())
+# for i in cursor:
+#     print("--------------")
+#     print(i)
