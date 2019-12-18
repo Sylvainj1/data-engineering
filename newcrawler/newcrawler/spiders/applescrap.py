@@ -13,6 +13,10 @@ class AppleSpider(scrapy.Spider):
     'https://www.apple.com/fr/shop/refurbished/ipod',
     ]
 
+    def clean_spaces(self,string):
+                if string:
+                    return " ".join(string.split())
+
     def parse(self, response):
         all_links = {
             name:response.urljoin(url) for name,url in zip(
@@ -22,14 +26,14 @@ class AppleSpider(scrapy.Spider):
         }
         for link in all_links.values():
             yield Request(link, callback=self.refurbished_product)
-            print(link)    
+            print(link)
 
     def refurbished_product(self, response):
         for i in response.css(".platter.selfclear"):
-            title=i.css("#productDetails").css("h1::text").get()   
-            currentPrice=i.css(".current_price span::text").get()   
-            previousPrice=i.css(".as-price-previousprice::text").get()  
-            save=i.css(".as-price-savings::text").get()
+            title=self.clean_spaces(i.css("#productDetails").css("h1::text").get())
+            currentPrice=self.clean_spaces(i.css(".current_price span::text").get())
+            previousPrice=self.clean_spaces(i.css(".as-price-previousprice::text").get())
+            save=self.clean_spaces(i.css(".as-price-savings::text").get())
             img=i.css(".gallery-preview img").extract() 
             yield ArticleItem(
                     title=title,
@@ -38,3 +42,5 @@ class AppleSpider(scrapy.Spider):
                     save=save,
                     img=img
                 )
+
+    
