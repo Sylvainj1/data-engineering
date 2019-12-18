@@ -10,21 +10,14 @@
     <div id="content">{% block content %}{% endblock %}</div>
     <div id="footer">
         <ul>
-            <li>{{iphone.name}}
-                <ul>
-                    {{iphone.capacity}}
-                </ul>
-            </li>
-            <li>{{ipad.name}}
+            {% for product in products %}
+                <li>
+                    {{product['title']}}
                     <ul>
-                        {{ipad.capacity}}
+                        {{product['currentPrice']}}
                     </ul>
                 </li>
-                <li>{{mac.name}}
-                        <ul>
-                            {{mac.capacity}}
-                        </ul>
-                    </li>
+            {% endfor %}
         </ul>
     </div>
 </body>

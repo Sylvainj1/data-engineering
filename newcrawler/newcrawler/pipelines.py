@@ -5,15 +5,19 @@ from pymongo import MongoClient
 import hashlib
 import time
 
+from elasticsearch import Elasticsearch
+ES_LOCAL = True
+
 class TextPipeline(object):
 
     def process_item(self, item, spider):
         if item:
-            item["_id"] = hashId(clean_spaces(item["_id"]))
+            item["id"] = hashId(clean_spaces(item["id"]))
             item["title"] = clean_spaces(item["title"])
             item['currentPrice'] = clean_spaces(item['currentPrice'])
             item['previousPrice'] = clean_spaces(item['previousPrice'])
             item['save'] = clean_spaces(item['save'])
+            item['type'] = clean_spaces(item['type'])
             return item
         else:
             raise DropItem("Missing value in %s" % item)
@@ -43,4 +47,13 @@ class StoreInMongo(object):
 
     def process_item(self, item, spider):
         self.db[self.collection_name].insert_one(dict(item))
+        return item
+
+
+class IndexElasticSearch(object):
+    def open_spider(self, spider):
+        self.es_client = Elasticsearch(hosts=["localhost" if ES_LOCAL else "elasticsearch"]) #verif ca fonctionne sur un autre pc ????
+
+    def process_item(self, item, spider):
+        self.es_client.index(index="product", doc_type='product', id=item['id'], body=dict(item))
         return item

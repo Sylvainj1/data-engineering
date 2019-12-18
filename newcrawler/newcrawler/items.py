@@ -11,9 +11,10 @@ import scrapy
 class ArticleItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    _id= scrapy.Field()
+    id= scrapy.Field()
     title=scrapy.Field()
     currentPrice=scrapy.Field()
     previousPrice=scrapy.Field()
     save=scrapy.Field()
     img=scrapy.Field()
+    type = scrapy.Field()

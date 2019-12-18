@@ -7,16 +7,7 @@ from pymongo import MongoClient
 client = MongoClient("0.0.0.0:27018")
 
 database_apple = client.refurbApple
-
-collectionName = database_apple.list_collection_names()
-
-collection_mac = database_apple["mac"]
-collection_iphone = database_apple["iphone"]
-collection_ipad = database_apple["ipad"]
-
-iphonedoc = collection_iphone.find_one()
-ipaddoc = collection_ipad.find_one()
-macdoc = collection_mac.find_one()
+collection_product = database_apple['product']
 
 
 app = Flask(__name__)
@@ -27,7 +18,14 @@ def landingPage():
 
 @app.route('/show_refurb')
 def refurbComparaisonPage():
-    return render_template("refurb_page.html", iphone = iphonedoc, ipad= ipaddoc, mac = macdoc)
+    documents = collection_product.find({})
+    response = []
+    for document in documents:
+        response.append(document)
+
+    print(response)
+
+    return render_template("refurb_page.html", products = response)
 
 
 
