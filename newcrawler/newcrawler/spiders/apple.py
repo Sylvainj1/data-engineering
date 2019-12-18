@@ -22,12 +22,21 @@ class AppleSpider(scrapy.Spider):
             currentPrice=i.css(".as-price-currentprice::text").extract()
             previousPrice=i.css(".as-price-previousprice::text").extract()   
             save=i.css(".as-producttile-savingsprice::text").extract() 
+            link=i.css("a::attr(href)").extract()
             yield ArticleItem(
                     title=title,
                     currentPrice=currentPrice,
                     previousPrice=previousPrice,
                     save=save,
+                    link=link
                 )
+
+    def clean_spaces(self,string):
+        if string:
+            return " ".join(string.split())
+
+
+
 
         # all_links = response.urljoin(response.css(".ac-gf-directory-column-section-link")[23].css("a::attr(href)").extract()[0])
        
@@ -43,16 +52,16 @@ class AppleSpider(scrapy.Spider):
         #     "link":all_links
         # }
 
-
-    def refurbished_product(self, response):
-        for i in response.css("li"):
-            title=i.response.css("h4").css("a::text").extract()    
-            currentPrice=i.response.css(".as-price-currentprice::text").extract()
-            previousPrice=i.response.css(".as-price-previousprice::text").extract()   
-            save=response.i.css(".as-producttile-savingsprice::text").extract() 
-            yield ArticleItem(
-                    title=title,
-                    currentPrice=currentPrice,
-                    previousPrice=previousPrice,
-                    save=save,
-                )
+    
+    # def refurbished_product(self, response):
+    #     for i in response.css("li"):
+    #         title=i.response.css("h4").css("a::text").extract()    
+    #         currentPrice=i.response.css(".as-price-currentprice::text").extract()
+    #         previousPrice=i.response.css(".as-price-previousprice::text").extract()   
+    #         save=response.i.css(".as-producttile-savingsprice::text").extract() 
+    #         yield ArticleItem(
+    #                 title=title,
+    #                 currentPrice=currentPrice,
+    #                 previousPrice=previousPrice,
+    #                 save=save,
+    #             )

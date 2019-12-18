@@ -10,8 +10,6 @@ class NewcrawlerPipeline(object):
     def process_item(self, item, spider):
         return item
 
-
-
 def clean_spaces(string):
     if string:
         return " ".join(string.split())

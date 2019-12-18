@@ -16,3 +16,4 @@ class ArticleItem(scrapy.Item):
     currentPrice=scrapy.Field()
     previousPrice=scrapy.Field()
     save=scrapy.Field()
+    img=scrapy.Field()
