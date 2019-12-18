@@ -34,7 +34,7 @@ class AppleSpider(scrapy.Spider):
             currentPrice=self.clean_spaces(i.css(".current_price span::text").get())
             previousPrice=self.clean_spaces(i.css(".as-price-previousprice::text").get())
             save=self.clean_spaces(i.css(".as-price-savings::text").get())
-            img=i.css(".gallery-preview img").extract() 
+            img=i.css(".gallery-preview img::attr(src)").extract() 
             yield ArticleItem(
                     title=title,
                     currentPrice=currentPrice,
