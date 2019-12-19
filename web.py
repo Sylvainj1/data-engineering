@@ -12,6 +12,10 @@ collection_product = database_apple['product']
 
 app = Flask(__name__)
 
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("404.html")
+
 @app.route('/')
 def landingPage():
     return render_template("landing_page.html")
