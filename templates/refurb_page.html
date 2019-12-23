@@ -12,7 +12,11 @@
         <li class="card card--1">
           <div class="card__info-hover">
               <div class="card__clock-info">
-                🔥🔥<span class="card__time"><strike>{{product['previousPrice']}}</strike></span>
+                <span class="card__time">{% if product['previousPrice'] != None %}
+                  🔥🔥<strike>{{product['previousPrice']}}</strike>
+                {% else %}
+                🤓🤓
+                {% endif %}</span>
               </div>
             
           </div>
