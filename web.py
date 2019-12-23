@@ -27,8 +27,6 @@ def refurbComparaisonPage():
     for document in documents:
         response.append(document)
 
-    print(response)
-
     return render_template("refurb_page.html", products = response)
 
 
