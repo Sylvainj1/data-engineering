@@ -13,8 +13,8 @@
     <div class="container">
       <div class="search-box">
         <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
-        <form action="" class="search-form">
-          <input type="text" placeholder="Rechercher ..." id="search" autocomplete="off">
+        <form action="" class="search-form" method="POST">
+          <input name = "input" type="text" placeholder="Rechercher ..." id="search" autocomplete="off">
         </form>
         <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;"
          xml:space="preserve">
@@ -27,7 +27,43 @@
     </div>
 </div>
 
+<div>
+  {% if res %}
+  <p>Nombre de resultats {{res['hits']['hits']|length}}</p>
+  {% endif %}
+</div>
+
   <div class="product-list">
+    {% if res %}
+
+    <ul class="cards">
+      {% for hit in res['hits']['hits'] %}
+      <li class="card card--1">
+        <div class="card__info-hover">
+            <div class="card__clock-info">
+              <span class="card__time">{% if hit['_source']['previousPrice'] != None %}
+                🔥🔥<strike>{{hit['_source']['previousPrice']}}</strike>
+              {% else %}
+              🤓🤓
+              {% endif %}</span>
+            </div>
+          
+        </div>
+        <div class="card__img"></div>
+        <a href="#" class="card_link">
+           <div class="card__img--hover" style="background-image: url('{{hit['_source']['img'][0]}}');"></div>
+         </a>
+        <div class="card__info">
+          <span class="card__category">{{hit['_source']['currentPrice']}}</span>
+          <h3 class="card__title">{{hit['_source']['title']}}</h3>
+          <span class="card__by"><i>{% if hit['_source']['save'] != None %}{{hit['_source']['save']}}
+          {% endif %}</i></span>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
       <ul class="cards">
         {% for product in products %}
         <li class="card card--1">
@@ -54,7 +90,7 @@
         </li>
         {% endfor %}
       </ul>
-
+      {% endif %}
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='script/search_animate.js') }}"></script>

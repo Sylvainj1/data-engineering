@@ -26,22 +26,17 @@ def not_found(e):
 def landingPage():
     return render_template("landing_page.html")
 
-@app.route('/show_refurb')
+@app.route('/show_refurb/', methods=['GET', 'POST'])
 def refurbComparaisonPage():
     documents = collection_product.find({})
     response = []
     for document in documents:
         response.append(document)
-
-    return render_template("refurb_page.html", products = response)
-
-
-@app.route('/search/', methods=['GET', 'POST'])
-def searchPage():
+    
 
     if request.method == 'POST':
         search_term = request.form["input"]
-        res = es_client.search(
+        query = es_client.search(
             index="product", 
             size=20, 
             body={
@@ -56,13 +51,34 @@ def searchPage():
                 }
             }
         )
-        return render_template('search.html', res=res )
+        return render_template('refurb_page.html', res=query)
     else:
-      return render_template('search.html')
+        return render_template("refurb_page.html", products = response)
 
 
+# @app.route('/search/', methods=['GET', 'POST'])
+# def searchPage():
 
-
+#     if request.method == 'POST':
+#         search_term = request.form["input"]
+#         res = es_client.search(
+#             index="product", 
+#             size=20, 
+#             body={
+#                 "query": {
+#                     "multi_match" : {
+#                         "query": search_term, 
+#                         "fields": [
+#                             "title", 
+#                             "currentPrice",
+#                         ] 
+#                     }
+#                 }
+#             }
+#         )
+#         return render_template('search.html', res=res )
+#     else:
+#       return render_template('search.html')
 
 
 if __name__ == "__main__":
