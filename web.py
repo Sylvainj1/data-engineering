@@ -57,7 +57,6 @@ def searchPage():
             }
         )
         return render_template('search.html', res=res )
-    #   return redirect(url_for('searchPage'))
     else:
       return render_template('search.html')
 
