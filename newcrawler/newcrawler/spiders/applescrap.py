@@ -3,7 +3,6 @@ import scrapy
 from scrapy import Request
 from ..items import ArticleItem
 
-
 class AppleSpider(scrapy.Spider):
     name = 'applescrap'
     allowed_domains = ['apple.com']
@@ -12,6 +11,10 @@ class AppleSpider(scrapy.Spider):
     'https://www.apple.com/fr/shop/refurbished/iphone',
     'https://www.apple.com/fr/shop/refurbished/ipod',
     ]
+    custom_settings = {
+        'FEED_URI' : 'datas.json'  #scrapy crawl applescrap pour lancer le scrapping
+    }
+
 
     def clean_spaces(self,string):
                 if string:
@@ -46,5 +49,3 @@ class AppleSpider(scrapy.Spider):
                     img=img,
                     type = type
                 )
-
-    
