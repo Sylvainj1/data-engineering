@@ -12,14 +12,35 @@
     {% endblock %}
 </head>
 <body>
+
+  {% block menu %}
+  <div class="nav-menu fixed-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-dark navbar-expand-lg">
+                    <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='images/apple-refurb-logo.png') }}" width="55" height="55" class="img-fluid" alt="logo"></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                    <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item"> <a class="nav-link" href="{{ url_for('landingPage')}}">ACCUEIL <span class="sr-only">(current)</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" href="{{ url_for('refurbComparaisonPage')}}">COMPARER</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="#contact">CONTACT</a> </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+  {% endblock %}
   
   {% block maincontent%}
   <div class="searchbox">
-    <div class="container">
+    <div class="sea-container">
       <div class="search-box">
         <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
         <form action="" class="search-form" method="POST">
-          <input name = "input" type="text" placeholder="Rechercher ..." id="search" autocomplete="off">
+          <input name = "input" type="text" placeholder="Rechercher ..." id="customsearch" autocomplete="off">
         </form>
         <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;"
          xml:space="preserve">

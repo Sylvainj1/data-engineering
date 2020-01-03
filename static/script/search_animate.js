@@ -1,13 +1,13 @@
 $(document).ready(function(){
-    $("#search").focus(function() {
+    $("#customsearch").focus(function() {
       $(".search-box").addClass("border-searching");
       $(".search-icon").addClass("si-rotate");
     });
-    $("#search").blur(function() {
+    $("#customsearch").blur(function() {
       $(".search-box").removeClass("border-searching");
       $(".search-icon").removeClass("si-rotate");
     });
-    $("#search").keyup(function() {
+    $("#customsearch").keyup(function() {
         if($(this).val().length > 0) {
           $(".go-icon").addClass("go-in");
         }
