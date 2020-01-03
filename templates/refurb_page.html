@@ -1,14 +1,19 @@
+{% extends "landing_page.html" %}
+
 <!DOCTYPE html>
 <html lang="fr">
-<head> <!--Définition d'un bloc structurel, de nom "head"-->
+<head>
+  {%block head %}
+  {{ super() }}
     <meta charset="utf-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/refurbCard.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/search_css.css') }}" />
     <script src="https://use.fontawesome.com/d290b12531.js"></script>
-    <title>Apple Refurb</title>
+    {% endblock %}
 </head>
 <body>
-
+  
+  {% block maincontent%}
   <div class="searchbox">
     <div class="container">
       <div class="search-box">
@@ -35,7 +40,6 @@
 
   <div class="product-list">
     {% if res %}
-
     <ul class="cards">
       {% for hit in res['hits']['hits'] %}
       <li class="card card--1">
@@ -94,5 +98,6 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='script/search_animate.js') }}"></script>
+    {% endblock  %}
 </body>
 </html>

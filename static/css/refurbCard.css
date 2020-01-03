@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700');
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 
-*{
+/* *{
   box-sizing: border-box;
-}
+} */
 
 /* html {
   font-family: 'Rubik', sans-serif;
@@ -27,8 +27,11 @@ body {
 }
 
 .product-list {
+  font-family: 'Rubik', sans-serif;
   padding: 0;
   margin: 0;
+  /* width: 100%;
+  height: 100%; */
   list-style: none;
   display: -webkit-box;
   display: -moz-box;
@@ -44,6 +47,12 @@ body {
     -webkit-justify-content: center;
 }
 
+.product-list span {
+  font-size: 13px;
+}
+.cards h3{
+  font-size: 17px;
+}
 
 
 .cards {
@@ -99,6 +108,7 @@ border-top-right-radius: 12px;
 }
 
 .card__info-hover {
+  font-size: 13px;
     position: absolute;
     padding: 16px;
   width: 100%;

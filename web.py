@@ -38,7 +38,7 @@ def refurbComparaisonPage():
         search_term = request.form["input"]
         query = es_client.search(
             index="product", 
-            size=20, 
+            size=30, 
             body={
                 "query": {
                     "multi_match" : {
