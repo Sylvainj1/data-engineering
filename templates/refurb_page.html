@@ -53,9 +53,13 @@
     </div>
 </div>
 
-<div>
+<div class="result-number">
   {% if res %}
+  {% if res['hits']['hits']|length == 0 %}
+  <p>Nous n'avons rien trouvé 😢</p>
+  {% else %}
   <p>Nombre de resultats {{res['hits']['hits']|length}}</p>
+  {% endif %}
   {% endif %}
 </div>
 

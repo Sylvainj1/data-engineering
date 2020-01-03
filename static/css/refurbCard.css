@@ -54,6 +54,16 @@ body {
   font-size: 17px;
 }
 
+.cards i {
+  color: #868686;
+}
+
+.result-number p{
+  text-align: center;
+  color: white;
+  margin-top: 10px;
+}
+
 
 .cards {
     width: 100%;
