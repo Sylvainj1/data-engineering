@@ -18,3 +18,12 @@ class ArticleItem(scrapy.Item):
     save=scrapy.Field()
     img=scrapy.Field()
     type = scrapy.Field()
+
+# class BMItem(scrapy.item):
+#     # id= scrapy.Field()
+#     title=scrapy.Field()
+#     currentPrice=scrapy.Field()
+#     previousPrice=scrapy.Field()
+#     save=scrapy.Field()
+#     # img=scrapy.Field()
+#     type = scrapy.Field()
