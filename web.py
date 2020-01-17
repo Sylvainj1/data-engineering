@@ -6,6 +6,8 @@ from pymongo import MongoClient
 
 from elasticsearch import Elasticsearch
 
+import pprint
+
 ES_LOCAL = True
 
 es_client = Elasticsearch(hosts=["localhost" if ES_LOCAL else "elasticsearch"])
@@ -18,13 +20,16 @@ collection_product = database_apple['product']
 
 app = Flask(__name__)
 
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template("404.html")
 
+
 @app.route('/')
 def landingPage():
     return render_template("landing_page.html")
+
 
 @app.route('/show_refurb/', methods=['GET', 'POST'])
 def refurbComparaisonPage():
@@ -32,28 +37,40 @@ def refurbComparaisonPage():
     response = []
     for document in documents:
         response.append(document)
-    
 
     if request.method == 'POST':
         search_term = request.form["input"]
         query = es_client.search(
-            index="product", 
-            size=30, 
+            index="product",
+            size=30,
             body={
                 "query": {
-                    "multi_match" : {
-                        "query": search_term, 
+                    "multi_match": {
+                        "query": search_term,
                         "fields": [
-                            "title", 
+                            "title",
                             "currentPrice",
-                        ] 
+                        ]
                     }
                 }
             }
         )
+
+        suggest = {
+            "suggest": {
+                "product_suggest": {
+                    "text": search_term,
+                    "completion": {
+                        "field": "suggest"
+                    }
+                }
+            }
+        }
+
+        #es_client.search(index="suggest_product", body=suggest, size=10)
         return render_template('refurb_page.html', res=query)
     else:
-        return render_template("refurb_page.html", products = response)
+        return render_template("refurb_page.html", products=response)
 
 
 # @app.route('/search/', methods=['GET', 'POST'])
@@ -62,16 +79,16 @@ def refurbComparaisonPage():
 #     if request.method == 'POST':
 #         search_term = request.form["input"]
 #         res = es_client.search(
-#             index="product", 
-#             size=20, 
+#             index="product",
+#             size=20,
 #             body={
 #                 "query": {
 #                     "multi_match" : {
-#                         "query": search_term, 
+#                         "query": search_term,
 #                         "fields": [
-#                             "title", 
+#                             "title",
 #                             "currentPrice",
-#                         ] 
+#                         ]
 #                     }
 #                 }
 #             }
@@ -82,4 +99,4 @@ def refurbComparaisonPage():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=2745) 
+    app.run(debug=True, port=2745)
