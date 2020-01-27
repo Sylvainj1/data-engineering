@@ -56,10 +56,20 @@ def refurbComparaisonPage():
             }
         )
 
+        #es_client.search(index="suggest_product", body=suggest, size=10)
+        return render_template('refurb_page.html', res=query)
+    else:
+        return render_template("refurb_page.html", products=response)
+
+@app.route('/suggest_product/suggest', methods=['GET', 'POST'])
+def suggest_method():
+    if request.method == 'GET':
+        req = request.args.get('search')
+
         suggest = {
             "suggest": {
                 "product_suggest": {
-                    "text": search_term,
+                    "text": req,
                     "completion": {
                         "field": "suggest"
                     }
@@ -67,35 +77,25 @@ def refurbComparaisonPage():
             }
         }
 
-        #es_client.search(index="suggest_product", body=suggest, size=10)
-        return render_template('refurb_page.html', res=query)
+        query = es_client.search(
+            index="suggest_product",
+            size=7,
+            body={
+                "query": {
+                    "multi_match": {
+                        "query": req,
+                        "fields": [
+                            "title",
+                            "currentPrice",
+                        ]
+                    }
+                }
+            }
+        )
+        return query
     else:
-        return render_template("refurb_page.html", products=response)
+        return "hello else"
 
-
-# @app.route('/search/', methods=['GET', 'POST'])
-# def searchPage():
-
-#     if request.method == 'POST':
-#         search_term = request.form["input"]
-#         res = es_client.search(
-#             index="product",
-#             size=20,
-#             body={
-#                 "query": {
-#                     "multi_match" : {
-#                         "query": search_term,
-#                         "fields": [
-#                             "title",
-#                             "currentPrice",
-#                         ]
-#                     }
-#                 }
-#             }
-#         )
-#         return render_template('search.html', res=res )
-#     else:
-#       return render_template('search.html')
 
 
 if __name__ == "__main__":
