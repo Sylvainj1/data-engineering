@@ -58,6 +58,12 @@ p.lead {
     margin-bottom: 2rem;
 }
 
+
+.suggestions{
+    list-style-type: none;
+    color: white;
+}
+
 .text-primary {
     color: #e38cb7 !important;
 }
