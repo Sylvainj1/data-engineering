@@ -17,7 +17,7 @@ function autosuggest(value){
   var div = '';
   console.log(data.hits.hits);
   data.hits.hits.forEach(function(suggestion){
-    div += ('<li class="suggestions">' + suggestion['_source']['title'] + '</li>');
+    div += ('<li class="suggestions">' + suggestion['_source']['my_field'] + '</li>');
 
   });
   $('.product-auto-suggest').html(div);

@@ -58,28 +58,37 @@ class IndexElasticSearch(object):
         self.es_client = Elasticsearch(
             hosts=["localhost" if ES_LOCAL else "elasticsearch"])
 
+        # mapping = {
+        #     "mappings": {
+        #             "properties": {
+        #             "title": {"type": "text"},
+        #             "suggest": {"type": "completion",
+        #                              "analyzer": "simple",
+        #                              "search_analyzer": "simple",
+        #                              }
+        #             }
+
+        #     }
+        # }
+
         mapping = {
             "mappings": {
-                    "properties": {
-                    "title": {"type": "text"},
-                    "suggest": {"type": "completion",
-                                     "analyzer": "simple",
-                                     "search_analyzer": "simple",
-                                     }
+                "properties": {
+                    "my_field": {
+                        "type": "search_as_you_type"
                     }
-            
+                }
+
             }
         }
+
         self.es_client.indices.create(
             index='suggest_product', body=mapping)
 
     def process_item(self, item, spider):
         item_dict = dict(item)
         p_suggest = {
-            "title": item_dict['title'],
-            "suggest": {
-                "input": item_dict['title'].split()
-            }
+            "my_field" : item_dict['title'],
         }
         self.es_client.index(
             index="product", doc_type='product', id=item['id'], body=item_dict)

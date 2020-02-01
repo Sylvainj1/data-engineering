@@ -61,32 +61,24 @@ def refurbComparaisonPage():
     else:
         return render_template("refurb_page.html", products=response)
 
+
 @app.route('/suggest_product/suggest', methods=['GET', 'POST'])
 def suggest_method():
     if request.method == 'GET':
         req = request.args.get('search')
 
-        suggest = {
-            "suggest": {
-                "product_suggest": {
-                    "text": req,
-                    "completion": {
-                        "field": "suggest"
-                    }
-                }
-            }
-        }
-
         query = es_client.search(
             index="suggest_product",
-            size=7,
+            size=5,
             body={
                 "query": {
                     "multi_match": {
                         "query": req,
+                        "type": "bool_prefix",
                         "fields": [
-                            "title",
-                            "currentPrice",
+                            "my_field",
+                            "my_field._2gram",
+                            "my_field._3gram"
                         ]
                     }
                 }
@@ -94,8 +86,7 @@ def suggest_method():
         )
         return query
     else:
-        return "hello else"
-
+        return "La méthode devrait renvoyer un index ES à la suite d'un GET pas d'un POST"
 
 
 if __name__ == "__main__":
