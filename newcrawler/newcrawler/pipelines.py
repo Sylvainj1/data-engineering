@@ -74,7 +74,7 @@ class IndexElasticSearch(object):
         mapping = {
             "mappings": {
                 "properties": {
-                    "my_field": {
+                    "title": {
                         "type": "search_as_you_type"
                     }
                 }
@@ -88,7 +88,7 @@ class IndexElasticSearch(object):
     def process_item(self, item, spider):
         item_dict = dict(item)
         p_suggest = {
-            "my_field" : item_dict['title'],
+            "title" : item_dict['title'],
         }
         self.es_client.index(
             index="product", doc_type='product', id=item['id'], body=item_dict)

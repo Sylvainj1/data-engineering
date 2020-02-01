@@ -65,6 +65,7 @@ def refurbComparaisonPage():
 @app.route('/suggest_product/suggest', methods=['GET', 'POST'])
 def suggest_method():
     if request.method == 'GET':
+        #permet de recuperer le query passé en url grace au JavaScript
         req = request.args.get('search')
 
         query = es_client.search(
@@ -76,9 +77,9 @@ def suggest_method():
                         "query": req,
                         "type": "bool_prefix",
                         "fields": [
-                            "my_field",
-                            "my_field._2gram",
-                            "my_field._3gram"
+                            "title",
+                            "title._2gram",
+                            "title._3gram"
                         ]
                     }
                 }
