@@ -63,6 +63,8 @@
   {% else %}
   <p>Nombre de resultats {{res['hits']['hits']|length}}</p>
   {% endif %}
+  {% else %}
+  <p> Il y a actuellement {{products|length}} produits sur le refurb Apple</p>
   {% endif %}
 </div>
 
