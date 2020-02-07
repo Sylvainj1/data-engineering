@@ -6,6 +6,7 @@ $("#customsearch").on('input', function(){
   autosuggest($(this).val());
  });
 //requet GET à chaque nouvelle lettre tapées
+// on a crée un url en endpoint -> /suggest_product/suggest qui nous retourne les query d'ES
 function autosuggest(value){
   $.get("/suggest_product/suggest", {search: value},         function(data){
     console.log(data);
@@ -17,11 +18,11 @@ function autosuggest(value){
   var div = '';
   console.log(data.hits.hits);
   data.hits.hits.forEach(function(suggestion){
-    div += ('<li class="suggestions">' + suggestion['_source']['title'] + '</li>');
+    div += ('<option value="'+ suggestion['_source']['title']+'">');
 
   });
-  $('.product-auto-suggest').html(div);
+  $('#suggestions').html(div);
  }
 
-//------------------------------------------------------------------------------------------
+
 
