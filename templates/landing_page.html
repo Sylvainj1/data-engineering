@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/themify-icons.css') }}">
     <!-- Main css -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
     {% endblock %}
 </head>
 
@@ -32,12 +35,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <nav class="navbar navbar-dark navbar-expand-lg">
-                        <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='images/apple-refurb-logo.png') }}" width="55" height="55" class="img-fluid" alt="logo"></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                        <a class="navbar-brand" href="{{ url_for('landingPage')}}"><img src="{{ url_for('static', filename='images/apple-refurb-logo.png') }}" width="55" height="55" class="img-fluid" alt="logo"></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                         <div class="collapse navbar-collapse" id="navbar">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item"> <a class="nav-link active" href="{{ url_for('landingPage')}}">ACCUEIL <span class="sr-only">(current)</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('refurbComparaisonPage')}}">COMPARER</a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="#contact">CONTACT</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('refurbComparaisonPage')}}">RECHERCHER</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="#compare">COMPARER</a> </li>
                             </ul>
                         </div>
                     </nav>
