@@ -66,8 +66,8 @@
             <div class="row">
                 <div class="col-lg-6 offset-lg-6">
                     <h2>Comment ca marche ?</h2>
-                    <p class="mb-4">Selectionnez le produit dont vous revez pour voir sa disponibilité et comparez ensuite les prix</p>
-                    <a href="#" class="btn btn-primary">Essayez !</a>
+                    <p class="mb-4">Selectionnez le produit dont vous rêvez pour voir sa disponibilité et comparez ensuite les prix</p>
+                    <a href="{{ url_for('refurbComparaisonPage')}}" class="btn btn-primary">Essayez !</a>
                 </div>
             </div>
             <div class="perspective-phone">
@@ -95,14 +95,16 @@
                             <div class="circle-icon mr-4">2</div>
                             <div class="media-body">
                                 <h5>Stockage avec MongoDB</h5>
-                                <p>Et indexation avec Elastic search</p>
+                                <p>Et indexation avec Elastic Search</p>
+                                <p>Création d'un moteur de suggestion avec "Search-As-You-Type", <br />une feature d'ES</p>
                             </div>
                         </li>
                         <li class="media">
                             <div class="circle-icon mr-4">3</div>
                             <div class="media-body">
                                 <h5>Gestion web/server avec Flask</h5>
-                                <p>Enfin, pour tout afficher et permettre une relation avec un server nous utilisons le framework Flask</p>
+                                <p>Enfin, pour tout afficher et permettre une relation avec un serveur<br />nous utilisons le framework Flask</p>
+                                <p>Et Jinga 2 pour la gestion des templates</p>
                             </div>
                         </li>
                     </ul>
