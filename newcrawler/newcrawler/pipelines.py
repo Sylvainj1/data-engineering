@@ -8,6 +8,7 @@ import time
 from elasticsearch import Elasticsearch
 ES_LOCAL = True
 
+
 class TextPipeline(object):
 
     def process_item(self, item, spider):
@@ -27,11 +28,11 @@ def clean_spaces(string):
     if string:
         return " ".join(string.split())
 
+
 def hashId(string):
     hashcode = str(int(time.time())).encode('utf-8')
     _id = hashlib.sha1(hashcode).hexdigest()[:11] + string
     return _id
-
 
 
 class StoreInMongo(object):
@@ -39,7 +40,8 @@ class StoreInMongo(object):
     collection_name = 'product'
 
     def open_spider(self, spider):
-        self.client = MongoClient("0.0.0.0:27018") #verif ca fonctionne sur un autre pc ????
+        # verif ca fonctionne sur un autre pc ????
+        self.client = MongoClient("0.0.0.0:27018")
         self.db = self.client.refurbApple
 
     def close_spider(self, spider):
@@ -52,8 +54,43 @@ class StoreInMongo(object):
 
 class IndexElasticSearch(object):
     def open_spider(self, spider):
-        self.es_client = Elasticsearch(hosts=["localhost" if ES_LOCAL else "elasticsearch"]) #verif ca fonctionne sur un autre pc ????
+        # verif ca fonctionne sur un autre pc ????
+        self.es_client = Elasticsearch(
+            hosts=["localhost" if ES_LOCAL else "elasticsearch"])
+
+        # mapping = {
+        #     "mappings": {
+        #             "properties": {
+        #             "title": {"type": "text"},
+        #             "suggest": {"type": "completion",
+        #                              "analyzer": "simple",
+        #                              "search_analyzer": "simple",
+        #                              }
+        #             }
+
+        #     }
+        # }
+
+        mapping = {
+            "mappings": {
+                "properties": {
+                    "title": {
+                        "type": "search_as_you_type"
+                    }
+                }
+
+            }
+        }
+
+        self.es_client.indices.create(
+            index='suggest_product', body=mapping)
 
     def process_item(self, item, spider):
-        self.es_client.index(index="product", doc_type='product', id=item['id'], body=dict(item))
+        item_dict = dict(item)
+        p_suggest = {
+            "title" : item_dict['title'],
+        }
+        self.es_client.index(
+            index="product", doc_type='product', id=item['id'], body=item_dict)
+        self.es_client.index(index="suggest_product", body=p_suggest)
         return item

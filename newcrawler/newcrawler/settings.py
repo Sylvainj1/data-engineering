@@ -66,9 +66,9 @@ FEED_FORMAT= "json"
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   # 'newcrawler.pipelines.TextPipeline': 200,
-   # 'newcrawler.pipelines.StoreInMongo': 400,
-   # 'newcrawler.pipelines.IndexElasticSearch': 600,
+   'newcrawler.pipelines.TextPipeline': 200,
+   'newcrawler.pipelines.StoreInMongo': 400,
+   'newcrawler.pipelines.IndexElasticSearch': 600,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

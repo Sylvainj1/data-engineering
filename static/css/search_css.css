@@ -18,6 +18,10 @@
     color: inherit;
     text-decoration: none;
   }
+
+  input::-webkit-calendar-picker-indicator {
+    display: none;
+  }
   /* main {
     position: absolute;
     top: 0;
