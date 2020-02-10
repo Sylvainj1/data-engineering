@@ -34,6 +34,7 @@ class BackMarketSpider(scrapy.Spider):
             type = self.clean_spaces(title.split()[0])
 
             yield ArticleItem(
+                id="",
                 title=title,
                 currentPrice=currentPrice,
                 previousPrice=previousPrice,
