@@ -60,7 +60,7 @@ def update_output(input_value):
       name='Apple',
       x= stockage,
       y=currentPrice,
-      hovertext='Prix',
+      barmode='group',
     )
   )
   
