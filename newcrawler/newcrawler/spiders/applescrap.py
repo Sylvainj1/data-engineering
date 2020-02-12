@@ -37,6 +37,7 @@ class AppleSpider(scrapy.Spider):
             id = i.css('form').css('input::attr(value)')[0].get()  #ca n'a pas l'air d'etre unique bizarre
             title = self.clean_spaces(i.css("#productDetails").css("h1::text").get())
             stockage= re.sub("[^\d\.]", "", self.clean_spaces(i.css("#dimensionCapacity.product-variation-list.form-dropdown.form-textbox").css("option[selected='selected']::text").extract_first()))
+            stockage=int(stockage)
             currentPrice = self.clean_spaces(i.css(".current_price span::text").get())
             previousPrice = i.css(".as-price-previousprice::text").get()
             save = i.css(".as-price-savings::text").get()
@@ -50,5 +51,6 @@ class AppleSpider(scrapy.Spider):
                     previousPrice=previousPrice,
                     save=save,
                     img=img,
-                    type = type
+                    type = type,
+                    site='apple',
                 )

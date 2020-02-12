@@ -10,6 +10,7 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import sys
 import re
+import glob
 
 with open(sys.path[0]+'/apple.json') as file:
   data_apple = json.load(file)
@@ -17,6 +18,13 @@ with open(sys.path[0]+'/apple.json') as file:
 with open(sys.path[0]+'/back_market.json') as file:
   data_back_market = json.load(file)
 
+dataframe=[]
+for i in data_apple:
+  dataframe.append(i)
+for i in data_back_market:
+  dataframe.append(i)
+
+print(dataframe)
 apple_price_fig = go.Figure()
 
 app = dash.Dash(__name__)
@@ -47,12 +55,15 @@ def update_output(input_value):
   title=[]
   currentPrice=[]
   stockage=[]
+  site=[]
 
-  for i in data_apple:
+  for i in dataframe:
     if(i['type']==input_value):
       title.append(i['title'])
       currentPrice.append(i['currentPrice'])
       stockage.append(i['stockage'])
+      site.append(i['site'])
+
 
   apple_price_fig=go.Figure()
   apple_price_fig.add_trace(
@@ -60,6 +71,7 @@ def update_output(input_value):
       name='Apple',
       x= stockage,
       y=currentPrice,
+      color=site,
       barmode='group',
     )
   )
