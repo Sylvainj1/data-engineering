@@ -8,6 +8,12 @@ from elasticsearch import Elasticsearch
 
 import pprint
 
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+
+import chart
+
 ES_LOCAL = True
 
 es_client = Elasticsearch(hosts=["localhost" if ES_LOCAL else "elasticsearch"])
@@ -20,6 +26,9 @@ collection_product = database_apple['product']
 
 app = Flask(__name__)
 
+dash_app = dash.Dash(__name__, server=app, routes_pathname_prefix= '/dash/')
+
+chart.GraphDash(dash_app=dash_app)
 
 @app.errorhandler(404)
 def not_found(e):
@@ -91,4 +100,6 @@ def suggest_method():
 
 
 if __name__ == "__main__":
+    
     app.run(debug=True, port=2745)
+    # dash_app.run_server(debug=True, port=2745)
