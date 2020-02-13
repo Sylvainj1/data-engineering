@@ -23,6 +23,12 @@ class GraphDash:
     with open(sys.path[0]+'/newcrawler/newcrawler/back_market.json') as file:
       data_back_market = json.load(file)
 
+    dataframe=[]
+    for i in data_apple:
+      dataframe.append(i)
+    for i in data_back_market:
+      dataframe.append(i)
+      
     apple_price_fig = go.Figure()
 
     self.dash_app.layout = html.Div([
@@ -65,7 +71,6 @@ class GraphDash:
           name='Apple',
           x= stockage,
           y=currentPrice,
-          barmode='group',
         )
       )
       
