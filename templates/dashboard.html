@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    {% block head%}
+    <title>Apple Refurb</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Mobland - Mobile App Landing Page Template">
+    <meta name="keywords" content="HTML5, bootstrap, mobile, app, landing, ios, android, responsive">
+
+    <!-- Font -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- Themify Icons -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themify-icons.css') }}">
+    <!-- Main css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dash.css') }}">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    {% endblock %}
+</head>
+
+<body data-spy="scroll" data-target="#navbar" data-offset="30">
+
+    <!-- Nav Menu -->
+    {% block menu %}
+    <div class="nav-menu fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-dark navbar-expand-lg">
+                        <a class="navbar-brand" href="{{ url_for('landingPage')}}"><img src="{{ url_for('static', filename='images/apple-refurb-logo.png') }}" width="55" height="55" class="img-fluid" alt="logo"></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                        <div class="collapse navbar-collapse" id="navbar">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('landingPage')}}">ACCUEIL <span class="sr-only">(current)</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('refurbComparaisonPage')}}">RECHERCHER</a> </li>
+                                <li class="nav-item"> <a class="nav-link active" href="{{ url_for('comparePage')}}">COMPARER</a> </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block maincontent%}
+
+    <header id="home">
+        <div class="container mt-5">
+            <h1>Comparer aux autres refurb</h1>
+            <!-- <p class="tagline">Mise à jour en temps de réel des prix sur les produits reconditionnés Apple. Comparatifs avec les prix pour les produits neuf pour que vous ne manquiez pas une bonne occasion d'acheter</p> -->
+        </div>
+    </header>
+
+    <div id="dashframe">
+        <iframe src="http://127.0.0.1:2745/dash/"></iframe>
+    </div>
+
+
+    <footer class="my-5 text-center">
+            <p class="mb-2"><small>Web app made by <a href="https://github.com/jeremySrgt">Jérémy Surget</a> and <a href="https://github.com/Sylvainj1">Sylvain Jiang</a></small></p>
+    </footer>
+
+    {% endblock %}
+
+    <!-- jQuery and Bootstrap -->
+    <script src="{{ url_for('static', filename='script/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='script/bootstrap.bundle.min.js') }}"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='script/script.js') }}"></script>
+
+</body>
+
+</html>

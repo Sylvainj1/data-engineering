@@ -73,6 +73,10 @@ def refurbComparaisonPage():
         return render_template("refurb_page.html", products=response)
 
 
+@app.route('/compare/')
+def comparePage():
+    return render_template("dashboard.html")
+
 @app.route('/suggest_product/suggest', methods=['GET', 'POST'])
 def suggest_method():
     if request.method == 'GET':
