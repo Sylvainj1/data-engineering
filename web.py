@@ -23,6 +23,8 @@ client = MongoClient("0.0.0.0:27018")
 database_apple = client.refurbApple
 collection_product = database_apple['product']
 
+# Lancer le scrapy crawl depuis ici pour automatiquement ajouter dans les BDD
+# en regardant bien que 2 items ne puisse pas etre ajouté 2 fois
 
 app = Flask(__name__)
 
