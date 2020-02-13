@@ -13,7 +13,7 @@ class ArticleItem(scrapy.Item):
     # name = scrapy.Field()
     id= scrapy.Field()
     title=scrapy.Field()
-    stockage=scrapy.Field()
+    # stockage=scrapy.Field()
     currentPrice=scrapy.Field()
     previousPrice=scrapy.Field()
     save=scrapy.Field()

@@ -11,8 +11,8 @@
 
 BOT_NAME = 'newcrawler'
 
-SPIDER_MODULES = ['newcrawler.spiders']
-NEWSPIDER_MODULE = 'newcrawler.spiders'
+SPIDER_MODULES = ['newcrawler.newcrawler.spiders']
+NEWSPIDER_MODULE = 'newcrawler.newcrawler.spiders'
 FEED_EXPORT_ENCODING = 'utf-8'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'newcrawler (+http://www.yourdomain.com)'
@@ -21,6 +21,7 @@ FEED_EXPORT_ENCODING = 'utf-8'
 ROBOTSTXT_OBEY = True
 
 FEED_FORMAT= "json"
+FEED_URI= 'apple.json'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -66,9 +67,9 @@ FEED_FORMAT= "json"
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'newcrawler.pipelines.TextPipeline': 200,
-   'newcrawler.pipelines.StoreInMongo': 400,
-   'newcrawler.pipelines.IndexElasticSearch': 600,
+   'newcrawler.newcrawler.pipelines.TextPipeline': 200,
+   'newcrawler.newcrawler.pipelines.StoreInMongo': 400,
+   'newcrawler.newcrawler.pipelines.IndexElasticSearch': 600,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

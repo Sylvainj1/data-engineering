@@ -17,11 +17,13 @@ class GraphDash:
     super().__init__()
     self.dash_app = dash_app
     
-    with open(sys.path[0]+'/newcrawler/newcrawler/apple.json') as file:
-      data_apple = json.load(file)
+    with open('apple.json', 'r') as file:
+      json_data = json.load(file)
+    data_apple = json_data
 
-    with open(sys.path[0]+'/newcrawler/newcrawler/back_market.json') as file:
-      data_back_market = json.load(file)
+    with open('newcrawler/newcrawler/back_market.json', 'r') as file:
+      bm_data = json.load(file)
+    data_back_market = bm_data
 
     dataframe=[]
     for i in data_apple:

@@ -12,9 +12,9 @@ class AppleSpider(scrapy.Spider):
     'https://www.apple.com/fr/shop/refurbished/iphone',
     'https://www.apple.com/fr/shop/refurbished/ipod',
     ]
-    custom_settings = {
-        'FEED_URI' : 'apple.json'  #scrapy crawl applescrap pour lancer le scrapping
-    }
+    # custom_settings = {
+    #     'FEED_URI' : 'apple.json'  #scrapy crawl applescrap pour lancer le scrapping
+    # }
 
 
     def clean_spaces(self,string):
@@ -36,8 +36,8 @@ class AppleSpider(scrapy.Spider):
         for i in response.css(".platter.selfclear"):
             id = i.css('form').css('input::attr(value)')[0].get()  #ca n'a pas l'air d'etre unique bizarre
             title = self.clean_spaces(i.css("#productDetails").css("h1::text").get())
-            stockage= re.sub("[^\d\.]", "", self.clean_spaces(i.css("#dimensionCapacity.product-variation-list.form-dropdown.form-textbox").css("option[selected='selected']::text").extract_first()))
-            stockage=int(stockage)
+            # stockage= re.sub("[^\d\.]", "", self.clean_spaces(i.css("#dimensionCapacity.product-variation-list.form-dropdown.form-textbox").css("option[selected='selected']::text").extract_first()))
+            # stockage=int(stockage)
             currentPrice = self.clean_spaces(i.css(".current_price span::text").get())
             previousPrice = i.css(".as-price-previousprice::text").get()
             save = i.css(".as-price-savings::text").get()
@@ -46,7 +46,7 @@ class AppleSpider(scrapy.Spider):
             yield ArticleItem(
                     id= id,
                     title=title,
-                    stockage=stockage,
+                    # stockage=stockage,
                     currentPrice=currentPrice,
                     previousPrice=previousPrice,
                     save=save,

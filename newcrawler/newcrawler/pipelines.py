@@ -43,12 +43,13 @@ class StoreInMongo(object):
         # verif ca fonctionne sur un autre pc ????
         self.client = MongoClient("0.0.0.0:27018")
         self.db = self.client.refurbApple
+        self.product_col = self.db[self.collection_name]
 
     def close_spider(self, spider):
         self.client.close()
 
     def process_item(self, item, spider):
-        self.db[self.collection_name].insert_one(dict(item))
+        self.product_col.insert_one(dict(item))
         return item
 
 
@@ -57,19 +58,6 @@ class IndexElasticSearch(object):
         # verif ca fonctionne sur un autre pc ????
         self.es_client = Elasticsearch(
             hosts=["localhost" if ES_LOCAL else "elasticsearch"])
-
-        # mapping = {
-        #     "mappings": {
-        #             "properties": {
-        #             "title": {"type": "text"},
-        #             "suggest": {"type": "completion",
-        #                              "analyzer": "simple",
-        #                              "search_analyzer": "simple",
-        #                              }
-        #             }
-
-        #     }
-        # }
 
         mapping = {
             "mappings": {

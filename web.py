@@ -14,22 +14,43 @@ import dash_html_components as html
 
 import chart
 
+import scrapy
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
+from newcrawler.newcrawler.spiders import applescrap
+from newcrawler.scraper import Scraper
+
+
 ES_LOCAL = True
 
 es_client = Elasticsearch(hosts=["localhost" if ES_LOCAL else "elasticsearch"])
 
-client = MongoClient("0.0.0.0:27018")
+client = MongoClient("0.0.0.0:27018") #verif que ca fonctionne sur toutes les machines
 
 database_apple = client.refurbApple
+database_apple['product'].drop()
+es_client.indices.delete(index='product', ignore= [400,404])
+es_client.indices.delete(index='suggest_product', ignore= [400,404])
+
+
+# settings = get_project_settings()
+# process = CrawlerProcess(settings)
+
+# process.crawl(applescrap.AppleSpider)
+# process.start() # le script est bloqué ici jusqu'a ce que le scrap se finisse
+
+
 collection_product = database_apple['product']
 
-# Lancer le scrapy crawl depuis ici pour automatiquement ajouter dans les BDD
-# en regardant bien que 2 items ne puisse pas etre ajouté 2 fois
 
 app = Flask(__name__)
 
-dash_app = dash.Dash(__name__, server=app, routes_pathname_prefix= '/dash/')
+scraper = Scraper()
+scraper.run_spider()
 
+
+
+dash_app = dash.Dash(__name__, server=app, routes_pathname_prefix= '/dash/')
 chart.GraphDash(dash_app=dash_app)
 
 @app.errorhandler(404)
@@ -107,5 +128,5 @@ def suggest_method():
 
 if __name__ == "__main__":
     
-    app.run(debug=True, port=2745)
+    app.run(debug=True, port=2745, use_reloader= False)
     # dash_app.run_server(debug=True, port=2745)
