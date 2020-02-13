@@ -19,6 +19,7 @@ class ArticleItem(scrapy.Item):
     save=scrapy.Field()
     img=scrapy.Field()
     type = scrapy.Field()
+    site=scrapy.Field()
 
 # class BMItem(scrapy.item):
 #     # id= scrapy.Field()
