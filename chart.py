@@ -11,32 +11,44 @@ import pandas as pd
 import sys
 import re
 
+import numpy as np
+import matplotlib.pyplot as plt
 
 class GraphDash:
   def __init__(self, dash_app):
     super().__init__()
     self.dash_app = dash_app
-    
-    with open('apple.json', 'r') as file:
+  
+    #apple data
+    with open(sys.path[0]+'/newcrawler/newcrawler/apple.json', 'r') as file:
+      print(file)
       json_data = json.load(file)
     data_apple = json_data
 
-    with open('newcrawler/newcrawler/back_market.json', 'r') as file:
+    #backmarket data
+    with open(sys.path[0]+'/newcrawler/newcrawler/back_market.json', 'r') as file:
       bm_data = json.load(file)
     data_back_market = bm_data
 
+    #all data
     dataframe=[]
     for i in data_apple:
       dataframe.append(i)
     for i in data_back_market:
       dataframe.append(i)
-      
+    
+    #stockage list for dropdown
+    stockage_list=[]
+    for e in data_apple:
+      stockage_list.append(e['stockage'])
+    stockage_list=set(stockage_list)
+
     apple_price_fig = go.Figure()
 
     self.dash_app.layout = html.Div([
       html.P("Sélectionnez un produit", style={"font-family":"Arial"}),
       dcc.Dropdown(
-            id='apple_select',
+            id='product_select',
             options=[
               {'label': 'iMac', 'value': 'iMac'},
               {'label': 'iPad', 'value': 'iPad'},
@@ -45,34 +57,49 @@ class GraphDash:
             ],
             value='iPhone',
       ),
+      html.P("Sélectionnez un stockage", style={"font-family":"Arial"}),
+      dcc.Dropdown(
+            id='stockage_select',
+            options=[{'label': i, 'value': i} for i in stockage_list],
+      ),
       dcc.Graph(
             id='apple_fig',
             figure=apple_price_fig,
           ),
     ])
 
-
     @self.dash_app.callback(
-      dash.dependencies.Output('apple_fig', 'figure'),
-      [dash.dependencies.Input('apple_select', 'value')])
-    def update_output(input_value):
+      dash.dependencies.Output(component_id='apple_fig', component_property='figure'),
+      [dash.dependencies.Input(component_id='product_select', component_property='value'),
+      dash.dependencies.Input(component_id='stockage_select',component_property='value')]
+      )
+    def update_output(input_value,stockage_value):
 
-      title=[]
-      currentPrice=[]
-      stockage=[]
-
+      currentPrice_apple=[]
+      stockage_apple=[]
+      site_apple=[]
       for i in data_apple:
         if(i['type']==input_value):
-          title.append(i['title'])
-          currentPrice.append(i['currentPrice'])
-          stockage.append(i['stockage'])
+          if(i['stockage']==stockage_value):
+            currentPrice_apple.append(i['currentPrice'][:-4])
+            stockage_apple.append(i['stockage'])
+            site_apple.append(i['stockage'])
+
+      currentPrice_backmarket=[]
+      stockage_backmarket=[]
+      site_backmarket=[]
+      for i in data_back_market:
+        if(i['type']==input_value):
+          if(i['stockage']==stockage_value[:-3]):
+            currentPrice_backmarket.append(i['currentPrice'][:-4])
+            stockage_backmarket.append(i['stockage'])
+            site_backmarket.append(i['stockage'])
 
       apple_price_fig=go.Figure()
       apple_price_fig.add_trace(
         go.Bar(
-          name='Apple',
-          x= stockage,
-          y=currentPrice,
+          x=stockage_apple,
+          y=currentPrice_apple,
         )
       )
       
