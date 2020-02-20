@@ -75,22 +75,26 @@ class GraphDash:
       )
     def update_output(input_value,stockage_value):
 
+      title_apple=[]
       currentPrice_apple=[]
       stockage_apple=[]
       site_apple=[]
       for i in data_apple:
         if(i['type']==input_value):
           if(i['stockage']==stockage_value):
+            title_apple.append(i['title'])
             currentPrice_apple.append(i['currentPrice'][:-4])
             stockage_apple.append(i['stockage'])
             site_apple.append(i['stockage'])
 
+      title_backmarket=[]
       currentPrice_backmarket=[]
       stockage_backmarket=[]
       site_backmarket=[]
       for i in data_back_market:
         if(i['type']==input_value):
           if(i['stockage']==stockage_value[:-3]):
+            title_backmarket.append(i['title'])
             currentPrice_backmarket.append(i['currentPrice'][:-4])
             stockage_backmarket.append(i['stockage'])
             site_backmarket.append(i['stockage'])
@@ -98,7 +102,7 @@ class GraphDash:
       apple_price_fig=go.Figure()
       apple_price_fig.add_trace(
         go.Bar(
-          x=stockage_apple,
+          x=title_apple,
           y=currentPrice_apple,
         )
       )
