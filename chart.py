@@ -14,6 +14,8 @@ import re
 import numpy as np
 import matplotlib.pyplot as plt
 
+import plotly.express as px
+
 class GraphDash:
   def __init__(self, dash_app):
     super().__init__()
@@ -21,13 +23,12 @@ class GraphDash:
   
     #apple data
     with open(sys.path[0]+'/newcrawler/newcrawler/apple.json', 'r') as file:
-      print(file)
       json_data = json.load(file)
     data_apple = json_data
 
     #backmarket data
-    with open(sys.path[0]+'/newcrawler/newcrawler/back_market.json', 'r') as file:
-      bm_data = json.load(file)
+    with open(sys.path[0]+'/newcrawler/newcrawler/back_market.json', 'r') as file_bm:
+      bm_data = json.load(file_bm)
     data_back_market = bm_data
 
     #all data
@@ -93,7 +94,7 @@ class GraphDash:
       site_backmarket=[]
       for i in data_back_market:
         if(i['type']==input_value):
-          if(i['stockage']==stockage_value[:-3]):
+          if(i['stockage']==int(stockage_value[:-3])):
             title_backmarket.append(i['title'])
             currentPrice_backmarket.append(i['currentPrice'][:-4])
             stockage_backmarket.append(i['stockage'])
@@ -104,9 +105,20 @@ class GraphDash:
         go.Bar(
           x=title_apple,
           y=currentPrice_apple,
+          marker_color='rgb(55, 83, 109)',
+          name='Apple',
         )
       )
-      
+
+      apple_price_fig.add_trace(
+        go.Bar(
+          x=title_backmarket,
+          y=currentPrice_backmarket,
+          marker_color='rgb(26, 118, 255)',
+          name='Backmarket',
+        )
+      )
+
       return apple_price_fig
 
 
