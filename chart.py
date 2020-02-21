@@ -118,6 +118,11 @@ class GraphDash:
           name='Backmarket',
         )
       )
+      apple_price_fig.update_layout(
+        yaxis=dict(
+          title='Prix du produit en €'
+        )
+      )
 
       return apple_price_fig
 
