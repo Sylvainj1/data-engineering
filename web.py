@@ -18,8 +18,9 @@ import chart
 import scrapy
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
+from newcrawler.scraper import Scraper
 from newcrawler.newcrawler.spiders import applescrap
-from newcrawler.newcrawler.spiders import backmarketscrap
+# from newcrawler.newcrawler.spiders import backmarketscrap
 
 
 ES_LOCAL = True
@@ -37,17 +38,17 @@ es_client.indices.delete(index='suggest_product', ignore= [400,404])
 settings = get_project_settings()
 process = CrawlerProcess(settings)
 
-process.crawl(applescrap.AppleSpider)
-process.crawl(backmarketscrap.BackMarketSpider)
-process.start()
+# process.crawl(applescrap.AppleSpider)
+# process.crawl(backmarketscrap.BackMarketSpider)
+# process.start()
 
 collection_product = database_apple['product']
 
 
 app = Flask(__name__)
 
-# scraper = Scraper()
-# scraper.run_spider()
+scraper = Scraper()
+scraper.run_spider()
 
 
 

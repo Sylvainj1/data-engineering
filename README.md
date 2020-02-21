@@ -11,7 +11,7 @@ To run the project, first launch Docker and enter
 docker-compose up -d
 ```
 then run the python script 'web.py'
-the apple should be available at http://127.0.0.1:2745/
+the app should be available at http://127.0.0.1:2745/
 
 <p align= "center">
 <img src="img/landingPage.png"  align="middle">
@@ -34,6 +34,10 @@ if you only type "Iphone" you will see all the Iphone, but if you type "64" you 
 __Compare page :__
 
 We also made a dash app integrated into our flask web app. This section helps you compare products, for example you can compare Iphone price based on the storage capacity, on apple refurb and Back Market
+
+<p align= "center">
+<img src="img/dash.png"  align="middle">
+</p>
 
 ## Copyright
 We used a HTML and CSS template for the landing page, this was made by Colorlib : https://colorlib.com
