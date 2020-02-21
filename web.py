@@ -19,7 +19,7 @@ import scrapy
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from newcrawler.newcrawler.spiders import applescrap
-from newcrawler.scraper import Scraper
+from newcrawler.newcrawler.spiders import backmarketscrap
 
 
 ES_LOCAL = True
@@ -34,20 +34,20 @@ es_client.indices.delete(index='product', ignore= [400,404])
 es_client.indices.delete(index='suggest_product', ignore= [400,404])
 
 
-# settings = get_project_settings()
-# process = CrawlerProcess(settings)
+settings = get_project_settings()
+process = CrawlerProcess(settings)
 
-# process.crawl(applescrap.AppleSpider)
-# process.start() # le script est bloqué ici jusqu'a ce que le scrap se finisse
-
+process.crawl(applescrap.AppleSpider)
+process.crawl(backmarketscrap.BackMarketSpider)
+process.start()
 
 collection_product = database_apple['product']
 
 
 app = Flask(__name__)
 
-scraper = Scraper()
-scraper.run_spider()
+# scraper = Scraper()
+# scraper.run_spider()
 
 
 
@@ -130,4 +130,5 @@ def suggest_method():
 if __name__ == "__main__":
     
     app.run(debug=True, port=2745, use_reloader= False)
+
     # dash_app.run_server(debug=True, port=2745)

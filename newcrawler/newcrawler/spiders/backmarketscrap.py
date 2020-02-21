@@ -58,7 +58,7 @@ class BackMarketSpider(scrapy.Spider):
                 img = img,
                 type = type,
                 site='backmarket'
-            )
+                )
             
 
 
