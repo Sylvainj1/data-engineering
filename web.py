@@ -1,3 +1,4 @@
+# coding: utf-8
 from flask import Flask, redirect, url_for
 from flask import render_template, render_template_string, request
 from jinja2 import Template
